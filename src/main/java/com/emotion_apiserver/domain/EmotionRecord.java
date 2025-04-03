@@ -59,7 +59,7 @@ public class EmotionRecord {
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private List<EmotionTag> emotionTags;
+    private List<EmotionTag> emotionTags = new ArrayList<>();
 
     // 수정 가능 여부 판단용
     public boolean isEditable() {
