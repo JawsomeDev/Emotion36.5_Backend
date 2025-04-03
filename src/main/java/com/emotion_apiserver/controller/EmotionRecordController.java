@@ -3,14 +3,17 @@ package com.emotion_apiserver.controller;
 
 import com.emotion_apiserver.domain.Account;
 import com.emotion_apiserver.domain.dto.EmotionRecordCreateRequest;
+import com.emotion_apiserver.domain.dto.EmotionRecordListDto;
+import com.emotion_apiserver.domain.dto.PageRequestDto;
+import com.emotion_apiserver.domain.dto.PageResponseDto;
 import com.emotion_apiserver.service.EmotionRecordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/emotions")
@@ -28,5 +31,20 @@ public class EmotionRecordController {
         Long savedId = emotionRecordService.saveEmotionRecord(request, dummyUser);
         return ResponseEntity.ok().body(savedId);
     }
+
+    @GetMapping("/list/{id}")
+    public ResponseEntity<?> getList(
+            @PathVariable Long id,
+            @ModelAttribute PageRequestDto pageRequestDto,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String emotion) {
+
+        PageResponseDto<EmotionRecordListDto> result =
+                emotionRecordService.getEmotionRecords(id, pageRequestDto, date, emotion);
+
+        return ResponseEntity.ok(result);
+    }
+
+
 }
 

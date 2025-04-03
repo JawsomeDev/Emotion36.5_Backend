@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ public class EmotionRecord {
     @Enumerated(EnumType.STRING)
     private EmotionType emotion;
 
-    // 기록 날짜 (생성일)
+    // 기록 날짜
     private LocalDateTime createdAt;
 
     // 마지막 수정일
@@ -58,7 +61,9 @@ public class EmotionRecord {
     private boolean detailed;
 
     @ElementCollection
+    @BatchSize(size = 50)
     @Enumerated(EnumType.STRING)
+    @Cascade({org.hibernate.annotations.CascadeType.ALL, CascadeType.DELETE_ORPHAN})
     private List<EmotionTag> emotionTags = new ArrayList<>();
 
     // 수정 가능 여부 판단용
