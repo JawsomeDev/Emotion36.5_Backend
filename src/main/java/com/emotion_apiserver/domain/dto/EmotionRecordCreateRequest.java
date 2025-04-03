@@ -2,7 +2,9 @@ package com.emotion_apiserver.domain.dto;
 
 import com.emotion_apiserver.domain.EmotionTag;
 import com.emotion_apiserver.domain.EmotionType;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +18,12 @@ public class EmotionRecordCreateRequest {
     @NotNull
     private EmotionType emotion; // 기본 감정
 
-    @NotNull
+    @NotNull(message = "기록 날짜는 필수입니다.")
+    @PastOrPresent(message = "미래 날짜는 선택할 수 없습니다.")
     private LocalDate recordDate; // 기록 날짜
 
-    private String diary; // 감정 일기 (기본 모드)
+    @NotBlank(message = "감정 일기는 필수입니다.")
+    private String diary; // 감정 일기
 
     private boolean detailed; // 상세 모드 여부
 
