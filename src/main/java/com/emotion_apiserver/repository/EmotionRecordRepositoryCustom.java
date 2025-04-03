@@ -1,8 +1,7 @@
 package com.emotion_apiserver.repository;
 
-import com.emotion_apiserver.domain.dto.EmotionRecordListDto;
-import com.emotion_apiserver.domain.dto.PageRequestDto;
-import org.springframework.stereotype.Repository;
+import com.emotion_apiserver.domain.dto.emotion.EmotionRecordListDto;
+import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 
 import java.util.List;
 

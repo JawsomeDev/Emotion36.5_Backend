@@ -3,12 +3,11 @@ package com.emotion_apiserver.service;
 
 import com.emotion_apiserver.domain.Account;
 import com.emotion_apiserver.domain.EmotionRecord;
-import com.emotion_apiserver.domain.dto.EmotionRecordCreateRequest;
-import com.emotion_apiserver.domain.dto.EmotionRecordListDto;
-import com.emotion_apiserver.domain.dto.PageRequestDto;
-import com.emotion_apiserver.domain.dto.PageResponseDto;
+import com.emotion_apiserver.domain.dto.emotion.EmotionRecordCreateRequest;
+import com.emotion_apiserver.domain.dto.emotion.EmotionRecordListDto;
+import com.emotion_apiserver.domain.dto.page.PageRequestDto;
+import com.emotion_apiserver.domain.dto.page.PageResponseDto;
 import com.emotion_apiserver.repository.EmotionRecordRepository;
-import com.emotion_apiserver.repository.EmotionRecordRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class EmotionRecordService {
         EmotionRecord record = EmotionRecord.builder()
                 .account(account)
                 .emotion(dto.getEmotion())
-                .createdAt(dto.getRecordDate().atStartOfDay()) // 날짜만 받으므로 00시로 설정
+                .createdAt(dto.getRecordDate().atStartOfDay())
                 .modifiedAt(LocalDateTime.now())
                 .diary(dto.getDiary())
                 .detailed(dto.isDetailed())

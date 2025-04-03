@@ -1,4 +1,4 @@
-package com.emotion_apiserver.domain.dto;
+package com.emotion_apiserver.domain.dto.page;
 
 
 import lombok.Data;

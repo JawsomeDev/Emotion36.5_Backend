@@ -5,14 +5,13 @@ import com.emotion_apiserver.domain.EmotionRecord;
 import com.emotion_apiserver.domain.EmotionTag;
 import com.emotion_apiserver.domain.EmotionType;
 import com.emotion_apiserver.domain.QEmotionRecord;
-import com.emotion_apiserver.domain.dto.EmotionRecordListDto;
-import com.emotion_apiserver.domain.dto.PageRequestDto;
+import com.emotion_apiserver.domain.dto.emotion.EmotionRecordListDto;
+import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;

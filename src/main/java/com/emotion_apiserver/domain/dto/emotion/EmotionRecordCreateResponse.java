@@ -1,4 +1,4 @@
-package com.emotion_apiserver.domain.dto;
+package com.emotion_apiserver.domain.dto.emotion;
 
 import com.emotion_apiserver.domain.EmotionRecord;
 import com.emotion_apiserver.domain.EmotionTag;
