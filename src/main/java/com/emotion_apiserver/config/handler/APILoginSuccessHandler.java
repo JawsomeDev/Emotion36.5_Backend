@@ -27,7 +27,7 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
 
         Gson gson = new Gson();
         String jsonStr = gson.toJson(claims);
-        response.setContentType("application/json");
+        response.setContentType("application/json;charset=UTF-8");
 
         PrintWriter printWriter = response.getWriter();
         printWriter.print(jsonStr);

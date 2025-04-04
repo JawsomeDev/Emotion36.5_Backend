@@ -10,10 +10,12 @@ import com.emotion_apiserver.service.EmotionRecordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/emotions")
+@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 @RequiredArgsConstructor
 public class EmotionRecordController {
 

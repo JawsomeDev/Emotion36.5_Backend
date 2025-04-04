@@ -38,7 +38,6 @@ public class EmotionRecordCreateResponse {
 
     private boolean editable; // 수정 가능 여부 (24시간 내)
 
-
     //Entity -> DTO
     public static EmotionRecordCreateResponse fromEntity(EmotionRecord record) {
         return EmotionRecordCreateResponse.builder()

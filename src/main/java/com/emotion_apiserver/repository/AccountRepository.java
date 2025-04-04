@@ -11,4 +11,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @EntityGraph(attributePaths = {"accountRoleList"})
     @Query("select a from Account a where a.email = :email")
     Account getWithRoles(@Param("email") String email);
+
+    boolean existsByNickname(String nickname);
 }

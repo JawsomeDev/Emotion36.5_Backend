@@ -21,10 +21,12 @@ public class Account {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
 
+    @Column(unique = true)
     private String nickname;
 
     private String confirmPassword;
@@ -33,6 +35,7 @@ public class Account {
 
     @ElementCollection
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private List<AccountRole> accountRoleList = new ArrayList<>();
 
     // 가입일시

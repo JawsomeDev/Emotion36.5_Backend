@@ -27,9 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new AccountDto(
                 account.getEmail(),
                 account.getPassword(),
-                account.getConfirmPassword(),
                 account.isSocial(),
-                account.getCreatedAt(),
                 account.getNickname(),
                 account.getAccountRoleList().stream()
                         .map(accountRole -> accountRole.name()).collect(Collectors.toList()));
