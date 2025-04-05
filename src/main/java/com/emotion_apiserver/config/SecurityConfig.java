@@ -33,13 +33,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
         http
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/", "/api/member/login", "/api/member/signup").permitAll()
+                        auth.requestMatchers("/", "/api/member/**", "/login").permitAll()
                                 .anyRequest().authenticated());
 
         http
                 .formLogin( formLogin -> {
                         formLogin.loginPage("/api/member/login");
-                         formLogin.usernameParameter("username");
                         formLogin.successHandler(new APILoginSuccessHandler());
                         formLogin.failureHandler(new APILoginFailHandler());
                 });

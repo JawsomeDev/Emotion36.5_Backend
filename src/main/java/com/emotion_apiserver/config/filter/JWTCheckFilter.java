@@ -39,6 +39,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
 
 
+
         return false;
     }
 
@@ -49,6 +50,12 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         log.info("------JWTCheckFilter------");
 
         String authHeaderStr = request.getHeader("Authorization");
+
+        if (authHeaderStr == null || !authHeaderStr.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         try{
             //Bearer access token
             String accessToken = authHeaderStr.substring(7);
@@ -58,11 +65,12 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
             String email = (String) claims.get("email");
             String password = (String) claims.get("password");
+            Long id = (Long) claims.get("id");
             String nickname = (String) claims.get("nickname");
             Boolean social = (Boolean) claims.get("social");
             List<String> roleNames = (List<String>) claims.get("roleNames");
 
-            AccountDto accountDto = new AccountDto(email, password, social,  nickname, roleNames);
+            AccountDto accountDto = new AccountDto(email, password, social,  nickname, roleNames, id);
             log.info("{}", accountDto);
             log.info("{}", accountDto.getAuthorities());
 

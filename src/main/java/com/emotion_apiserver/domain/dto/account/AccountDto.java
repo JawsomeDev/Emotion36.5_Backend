@@ -27,22 +27,26 @@ public class AccountDto extends User {
 
     private boolean social;
 
+    private Long id;
+
 
 
     public AccountDto(String email, String password,
                       boolean social, String nickname,
-                      List<String> roleNames) {
+                      List<String> roleNames, Long id) {
         super(email, password, roleNames.stream().map(str ->
                 new SimpleGrantedAuthority("ROLE_" + str)).collect(Collectors.toList()));
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.social = social;
+        this.id = id;
         this.roleNames = roleNames;
     }
 
     public Map<String, Object> getClaims(){
         Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("id", id);
         dataMap.put("email", email);
         dataMap.put("password", password);
         dataMap.put("nickname", nickname);

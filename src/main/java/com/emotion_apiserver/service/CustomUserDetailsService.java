@@ -30,6 +30,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                 account.isSocial(),
                 account.getNickname(),
                 account.getAccountRoleList().stream()
-                        .map(accountRole -> accountRole.name()).collect(Collectors.toList()));
+                        .map(Enum::name).collect(Collectors.toList()),
+                account.getId());
+
     }
 }
