@@ -5,9 +5,7 @@ import com.emotion_apiserver.config.util.CustomJWTException;
 import com.emotion_apiserver.config.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.Map;
@@ -17,27 +15,36 @@ import java.util.Map;
 @Slf4j
 public class APIRefreshController {
 
-    @RequestMapping("/api/member/refresh")
-    public Map<String, Object> refresh(@RequestHeader("Authorization") String authHeader, String refreshToken) {
-        if(refreshToken == null){
+    @PostMapping("/api/member/refresh")
+    public Map<String, Object> refresh(@RequestHeader("Authorization") String authHeader,
+                                       @RequestBody Map<String, String> body) {
+
+        String refreshToken = body.get("refreshToken");
+
+        if (refreshToken == null || refreshToken.trim().isEmpty()) {
             throw new CustomJWTException("NULL_REFRESH_TOKEN");
         }
-        if(authHeader == null || authHeader.length() < 7){
+
+        if (authHeader == null || authHeader.length() < 7) {
             throw new CustomJWTException("INVALID_STRING");
         }
+
         String accessToken = authHeader.substring(7);
-        //Access 토큰 만료 x
-        if(checkExpiredToken(accessToken) == false){
+
+        // accessToken 만료 여부 확인
+        if (!checkExpiredToken(accessToken)) {
             return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
         }
-        //RefreshToken 검증
+
+        // refreshToken 검증
         Map<String, Object> claims = JWTUtil.validateToken(refreshToken);
         log.info("refresh ... claims: {}", claims);
 
-        String newAccessToken = JWTUtil.generateToken(claims, 10);
+        String newAccessToken = JWTUtil.generateToken(claims, 1);
 
-        String newRefreshToken = checkTime((Integer)claims.get("exp")) == true ?
-                JWTUtil.generateToken(claims, 60*24) : refreshToken;
+        String newRefreshToken = checkTime((Integer) claims.get("exp")) ?
+                JWTUtil.generateToken(claims, 60 * 24) : refreshToken;
+
         return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken);
     }
 
