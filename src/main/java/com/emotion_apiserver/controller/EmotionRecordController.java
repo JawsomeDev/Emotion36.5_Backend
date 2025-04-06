@@ -5,6 +5,7 @@ import com.emotion_apiserver.domain.Account;
 import com.emotion_apiserver.domain.dto.account.AccountDto;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordCreateRequest;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordListDto;
+import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateRequest;
 import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 import com.emotion_apiserver.domain.dto.page.PageResponseDto;
 import com.emotion_apiserver.service.EmotionRecordService;
@@ -46,6 +47,26 @@ public class EmotionRecordController {
                 emotionRecordService.getEmotionRecords(userId, pageRequestDto, date, emotion);
 
         return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(
+            @PathVariable Long id,
+            @RequestBody @Valid EmotionRecordUpdateRequest request,
+            @AuthenticationPrincipal AccountDto accountDto) {
+
+        emotionRecordService.updateEmotionRecord(id, request, accountDto);
+        return ResponseEntity.ok("수정되었습니다.");
+    }
+
+    // 감정 기록 삭제
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(
+            @PathVariable Long id,
+            @AuthenticationPrincipal AccountDto accountDto) {
+
+        emotionRecordService.deleteEmotionRecord(id, accountDto);
+        return ResponseEntity.ok("삭제되었습니다.");
     }
 
 

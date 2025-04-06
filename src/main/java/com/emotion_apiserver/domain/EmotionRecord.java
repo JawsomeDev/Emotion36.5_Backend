@@ -1,5 +1,6 @@
 package com.emotion_apiserver.domain;
 
+import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -70,4 +71,24 @@ public class EmotionRecord {
     public boolean isEditable() {
         return createdAt != null && createdAt.plusHours(24).isAfter(LocalDateTime.now());
     }
+
+    public void updateFromRequest(EmotionRecordUpdateRequest request) {
+        this.emotion = EmotionType.valueOf(request.getEmotion()); // 🔄 여기만 EmotionType으로
+        this.diary = request.getDiary();
+        this.reason = request.getReason();
+        this.situation = request.getSituation();
+        this.relatedPerson = request.getRelatedPerson();
+        this.reliefAttempt = request.getReliefAttempt();
+        this.reliefFailedReason = request.getReliefFailedReason();
+        this.reliefSucceeded = request.getReliefSucceeded();
+        this.prevention = request.getPrevention();
+
+        this.emotionTags.clear();
+        if (request.getEmotionTags() != null) {
+            for (String tag : request.getEmotionTags()) {
+                this.emotionTags.add(EmotionTag.valueOf(tag));
+            }
+        }
+    }
+
 }
