@@ -6,6 +6,7 @@ import com.emotion_apiserver.domain.dto.account.AccountDto;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordCreateRequest;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordListDto;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateRequest;
+import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateResponse;
 import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 import com.emotion_apiserver.domain.dto.page.PageResponseDto;
 import com.emotion_apiserver.service.EmotionRecordService;
@@ -28,7 +29,6 @@ public class EmotionRecordController {
     public ResponseEntity<?> create(@RequestBody @Valid EmotionRecordCreateRequest request,
                                     @AuthenticationPrincipal AccountDto accountDto) {
 
-        // 인증된 사용자의 ID를 기반으로 Account 객체 생성
         Account currentUser = Account.builder().id(accountDto.getId()).build();
 
         Long savedId = emotionRecordService.saveEmotionRecord(request, currentUser);
@@ -55,8 +55,8 @@ public class EmotionRecordController {
             @RequestBody @Valid EmotionRecordUpdateRequest request,
             @AuthenticationPrincipal AccountDto accountDto) {
 
-        emotionRecordService.updateEmotionRecord(id, request, accountDto);
-        return ResponseEntity.ok("수정되었습니다.");
+        EmotionRecordUpdateResponse response = emotionRecordService.updateEmotionRecord(id, request, accountDto);
+        return ResponseEntity.ok(response);
     }
 
     // 감정 기록 삭제

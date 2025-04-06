@@ -7,6 +7,7 @@ import com.emotion_apiserver.domain.dto.account.AccountDto;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordCreateRequest;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordListDto;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateRequest;
+import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateResponse;
 import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 import com.emotion_apiserver.domain.dto.page.PageResponseDto;
 import com.emotion_apiserver.repository.EmotionRecordRepository;
@@ -54,7 +55,7 @@ public class EmotionRecordService {
         return new PageResponseDto<>(dto, totalCount, list);
     }
 
-    public void updateEmotionRecord(Long id, EmotionRecordUpdateRequest request, AccountDto accountDto) {
+    public EmotionRecordUpdateResponse updateEmotionRecord(Long id, EmotionRecordUpdateRequest request, AccountDto accountDto) {
         EmotionRecord record = emotionRecordRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("감정 기록이 존재하지 않습니다."));
 
@@ -62,10 +63,26 @@ public class EmotionRecordService {
             throw new AccessDeniedException("수정 권한이 없습니다.");
         }
 
+        // 업데이트 실행
         record.updateFromRequest(request);
-        // 태그는 기존 것 모두 삭제 후 다시 추가하는 식으로 처리할 수 있음
-        emotionRecordRepository.save(record);
+        EmotionRecord updated = emotionRecordRepository.save(record);
+
+        return EmotionRecordUpdateResponse.builder()
+                .id(updated.getId())
+                .emotion(updated.getEmotion().name()) // EmotionType → String
+                .diary(updated.getDiary())
+                .reason(updated.getReason())
+                .situation(updated.getSituation())
+                .relatedPerson(updated.getRelatedPerson())
+                .reliefAttempt(updated.getReliefAttempt())
+                .reliefFailedReason(updated.getReliefFailedReason())
+                .reliefSucceeded(updated.getReliefSucceeded())
+                .prevention(updated.getPrevention())
+                .emotionTags(updated.getEmotionTags())
+                .modifiedAt(updated.getModifiedAt() != null ? updated.getModifiedAt().toString() : null)
+                .build();
     }
+
 
     public void deleteEmotionRecord(Long id, AccountDto accountDto) {
         EmotionRecord record = emotionRecordRepository.findById(id)
