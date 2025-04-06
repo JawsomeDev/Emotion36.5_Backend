@@ -65,7 +65,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
             String email = (String) claims.get("email");
             String password = (String) claims.get("password");
-            Long id = (Long) claims.get("id");
+            Long id = ((Integer) claims.get("id")).longValue();
             String nickname = (String) claims.get("nickname");
             Boolean social = (Boolean) claims.get("social");
             List<String> roleNames = (List<String>) claims.get("roleNames");
