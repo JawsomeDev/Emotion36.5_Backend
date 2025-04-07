@@ -9,6 +9,7 @@ import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateRequest;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateResponse;
 import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 import com.emotion_apiserver.domain.dto.page.PageResponseDto;
+import com.emotion_apiserver.service.AnalysisService;
 import com.emotion_apiserver.service.EmotionRecordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmotionRecordController {
 
     private final EmotionRecordService emotionRecordService;
+    private final AnalysisService analysisService;
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody @Valid EmotionRecordCreateRequest request,
@@ -32,6 +34,7 @@ public class EmotionRecordController {
         Account currentUser = Account.builder().id(accountDto.getId()).build();
 
         Long savedId = emotionRecordService.saveEmotionRecord(request, currentUser);
+        analysisService.regenerateAllAnalyses(accountDto.getId());
         return ResponseEntity.ok(savedId);
     }
 
@@ -54,8 +57,8 @@ public class EmotionRecordController {
             @PathVariable Long id,
             @RequestBody @Valid EmotionRecordUpdateRequest request,
             @AuthenticationPrincipal AccountDto accountDto) {
-
         EmotionRecordUpdateResponse response = emotionRecordService.updateEmotionRecord(id, request, accountDto);
+        analysisService.regenerateAllAnalyses(accountDto.getId());
         return ResponseEntity.ok(response);
     }
 
@@ -64,8 +67,8 @@ public class EmotionRecordController {
     public ResponseEntity<?> delete(
             @PathVariable Long id,
             @AuthenticationPrincipal AccountDto accountDto) {
-
         emotionRecordService.deleteEmotionRecord(id, accountDto);
+        analysisService.regenerateAllAnalyses(accountDto.getId());
         return ResponseEntity.ok("삭제되었습니다.");
     }
 

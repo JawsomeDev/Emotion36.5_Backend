@@ -40,7 +40,7 @@ public class APIRefreshController {
         Map<String, Object> claims = JWTUtil.validateToken(refreshToken);
         log.info("refresh ... claims: {}", claims);
 
-        String newAccessToken = JWTUtil.generateToken(claims, 1);
+        String newAccessToken = JWTUtil.generateToken(claims, 10);
 
         String newRefreshToken = checkTime((Integer) claims.get("exp")) ?
                 JWTUtil.generateToken(claims, 60 * 24) : refreshToken;
