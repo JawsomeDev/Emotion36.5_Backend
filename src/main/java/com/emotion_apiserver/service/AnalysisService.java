@@ -146,7 +146,9 @@ public class AnalysisService {
 
         StringBuilder promptBuilder = new StringBuilder("최근 감정 기록 요약입니다.\n");
         emotionCount.forEach((key, value) -> promptBuilder.append("- ").append(key).append(": ").append(value).append("회\n"));
-        promptBuilder.append("\n이 데이터를 기반으로 감정 흐름을 한 문장으로 요약하고, 사용자에게 따뜻한 조언을 한 문장으로 전달해주세요. 번호 없이 자연스럽게 문장을 이어주세요.");
+        promptBuilder.append("\n이 데이터를 기반으로 감정 흐름을 한 문장으로 요약하고, 사용자에게 적절한 감정 해소법이나 조언을 제시해주세요. ");
+        promptBuilder.append("예를 들어, 사용자가 '화남'이라는 감정을 기록했다면, 화를 풀 수 있는 방법이나 평온을 찾을 수 있는 방법을 제안해 주세요. ");
+        promptBuilder.append("감정을 진정시키기 위한 팁이나 위로가 될 수 있는 좋은 말도 포함시켜 주세요. 문장을 여러 개로 나누되 자연스럽게 이어주세요.");
 
         String result = emotionAIService.generateWeeklySummary(promptBuilder.toString());
 
@@ -154,10 +156,10 @@ public class AnalysisService {
         String recommendation = "조금 더 자신을 돌보는 시간을 가져보세요.";
 
         if (result != null && !result.isBlank()) {
-            String[] lines = result.split("\n");
-            if (lines.length >= 2) {
-                pattern = lines[0].trim();
-                recommendation = lines[1].trim();
+            String[] parts = result.split("\\. ", 2);
+            if (parts.length >= 2) {
+                pattern = parts[0].trim();
+                recommendation = parts[1].trim();
             } else {
                 pattern = result.trim();
             }
@@ -176,4 +178,5 @@ public class AnalysisService {
         };
     }
 }
+
 

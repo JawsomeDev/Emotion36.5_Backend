@@ -29,6 +29,7 @@ public class SpotifyService {
     private String clientSecret;
 
     private String accessToken;
+    private long expiresAt = 0; // 만료 시간 (Unix timestamp)
 
     @PostConstruct
     public void init() {
@@ -54,9 +55,20 @@ public class SpotifyService {
 
         JSONObject json = new JSONObject(response.getBody());
         this.accessToken = json.getString("access_token");
+
+        int expiresIn = json.getInt("expires_in"); // 보통 3600초
+        this.expiresAt = System.currentTimeMillis() + (expiresIn * 1000L);
+    }
+
+    private void ensureTokenValid() {
+        if (System.currentTimeMillis() >= expiresAt) {
+            fetchAccessToken();
+        }
     }
 
     public TrackInfo searchTrackByKeyword(String keyword) {
+        ensureTokenValid(); // 💡 API 호출 전에 항상 유효성 검사
+
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://api.spotify.com/v1/search?q=" + URLEncoder.encode(keyword, StandardCharsets.UTF_8)
                 + "&type=track&limit=10&market=KR";
@@ -66,6 +78,7 @@ public class SpotifyService {
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
         JSONObject json = new JSONObject(response.getBody());
         JSONArray items = json.getJSONObject("tracks").getJSONArray("items");
 
@@ -73,11 +86,11 @@ public class SpotifyService {
 
         int randomIndex = new Random().nextInt(items.length());
         JSONObject track = items.getJSONObject(randomIndex);
-        String trackName = track.getString("name");
-        String link = track.getJSONObject("external_urls").getString("spotify");
-        String thumbnail = track.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url");
 
-        log.info("🎵 추천된 트랙: {} / 링크: {}", trackName, link);
-        return new TrackInfo(trackName, link, thumbnail);
+        return new TrackInfo(
+                track.getString("name"),
+                track.getJSONObject("external_urls").getString("spotify"),
+                track.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url")
+        );
     }
 }
