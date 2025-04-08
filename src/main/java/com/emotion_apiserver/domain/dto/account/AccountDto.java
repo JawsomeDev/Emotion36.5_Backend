@@ -1,5 +1,6 @@
 package com.emotion_apiserver.domain.dto.account;
 
+import com.emotion_apiserver.domain.Account;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -54,4 +55,6 @@ public class AccountDto extends User {
         dataMap.put("roleNames", roleNames);
         return dataMap;
     }
+
+
 }

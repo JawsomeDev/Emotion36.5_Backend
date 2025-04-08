@@ -12,6 +12,7 @@ import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 import com.emotion_apiserver.domain.dto.page.PageResponseDto;
 import com.emotion_apiserver.repository.EmotionRecordRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class EmotionRecordService {
         EmotionRecord record = EmotionRecord.builder()
                 .account(account)
                 .emotion(dto.getEmotion())
-                .createdAt(dto.getRecordDate().atStartOfDay())
+                .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .diary(dto.getDiary())
                 .detailed(dto.isDetailed())
