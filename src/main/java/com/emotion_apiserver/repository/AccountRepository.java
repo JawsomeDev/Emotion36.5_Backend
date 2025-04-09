@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
     @EntityGraph(attributePaths = {"accountRoleList"})
@@ -13,4 +15,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Account getWithRoles(@Param("email") String email);
 
     boolean existsByNickname(String nickname);
+
+    Optional<Account> findByNickname(String nickname);
 }
