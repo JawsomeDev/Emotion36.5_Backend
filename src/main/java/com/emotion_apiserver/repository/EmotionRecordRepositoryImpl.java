@@ -35,7 +35,14 @@ public class EmotionRecordRepositoryImpl implements EmotionRecordRepositoryCusto
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(record.account.id.eq(id));
 
-        if (date != null) builder.and(record.createdAt.eq(LocalDate.parse(date).atStartOfDay()));
+        if (date != null) {
+            LocalDate localDate = LocalDate.parse(date);
+            builder.and(record.createdAt.between(
+                    localDate.atStartOfDay(),
+                    localDate.plusDays(1).atStartOfDay().minusNanos(1)
+            ));
+        }
+
         if (emotion != null && !emotion.equals("all")) builder.and(record.emotion.eq(EmotionType.valueOf(emotion)));
 
         List<EmotionRecordListDto> dtos = queryFactory

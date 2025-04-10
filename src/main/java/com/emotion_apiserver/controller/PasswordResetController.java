@@ -15,7 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/password")
@@ -49,22 +51,31 @@ public class PasswordResetController {
     }
 
     @PostMapping("/reset")
-    public ResponseEntity<?> resetPassword(@RequestBody PasswordResetRequest request) {
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody PasswordResetRequest request) {
         PasswordResetToken token = resetTokenRepository.findByToken(request.getToken())
                 .orElseThrow(() -> new IllegalArgumentException("토큰이 유효하지 않습니다."));
 
         if (token.isExpired()) {
-            return ResponseEntity.badRequest().body("토큰이 만료되었습니다.");
+            throw new IllegalArgumentException("토큰이 만료되었습니다. 재요청이 필요합니다.");
+        }
+        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         Account account = token.getAccount();
         account.changePassword(passwordEncoder.encode(request.getNewPassword()));
         accountRepository.save(account);
 
-        // 토큰 삭제 (보안상)
         resetTokenRepository.delete(token);
 
-        return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "success", true,
+                        "message", "비밀번호가 성공적으로 변경되었습니다."
+                )
+        );
+
     }
 }
 
