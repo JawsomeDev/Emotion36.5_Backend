@@ -40,4 +40,9 @@ public class Account {
 
     // 가입일시
     private LocalDateTime createdAt;
+
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
 }

@@ -33,7 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
         http
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/", "/api/member/**", "/login").permitAll()
+                        auth.requestMatchers("/", "/api/member/**", "/login", "/api/password/**").permitAll()
                                 .anyRequest().authenticated());
 
         http

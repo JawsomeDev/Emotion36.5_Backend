@@ -16,15 +16,11 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class KakaoController {
+public class KakaoOAuthController {
 
     private final KakaoOAuthService kakaoOAuthService;
     private final JWTUtil jwtUtil;
 
-    /**
-     * 카카오 소셜 로그인 처리
-     * @param code 인가 코드
-     */
     @GetMapping("/api/member/kakao")
     public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code) {
         log.info("🔐 카카오 로그인 요청 code = {}", code);
