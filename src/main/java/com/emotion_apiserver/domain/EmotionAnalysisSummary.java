@@ -24,6 +24,7 @@ public class EmotionAnalysisSummary {
     private AnalysisType type;
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String summary;
 
     private LocalDateTime updatedAt;

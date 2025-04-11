@@ -5,6 +5,7 @@ import com.emotion_apiserver.domain.dto.account.AccountSignUpRequest;
 import com.emotion_apiserver.domain.dto.account.AccountSignUpResponse;
 import com.emotion_apiserver.repository.AccountRepository;
 import com.emotion_apiserver.service.AccountService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

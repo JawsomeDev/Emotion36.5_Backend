@@ -33,7 +33,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
         http
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/", "/api/member/**", "/login", "/api/password/**").permitAll()
+                        auth.requestMatchers("/", "/api/member/**", "/login", "/api/password/**",
+                                        "/v3/api-docs/**",
+                                        "/v3/api-docs",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html",
+                                        "/swagger-resources/**",      // ← 요거 추가 필요할 수 있음
+                                        "/webjars/**"
+                                ).permitAll()
                                 .anyRequest().authenticated());
 
         http
