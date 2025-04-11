@@ -49,3 +49,5 @@ public class CommunityController {
         return "redirect:/community";
     }
 }
+
+// git push를 위한 새로운 주석
