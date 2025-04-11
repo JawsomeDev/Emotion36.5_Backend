@@ -48,8 +48,8 @@ dependencies {
     implementation 'org.json:json:20230227'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
-//    runtimeOnly 'com.mysql:mysql-connector-j'
-    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+//    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4' 이건 이하온님꺼
     implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
