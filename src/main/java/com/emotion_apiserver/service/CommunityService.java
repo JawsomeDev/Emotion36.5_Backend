@@ -4,6 +4,9 @@ package com.emotion_apiserver.service;
 import com.emotion_apiserver.domain.account.Account;
 import com.emotion_apiserver.domain.community.Community;
 import com.emotion_apiserver.domain.dto.community.CommunityCreateRequest;
+import com.emotion_apiserver.domain.dto.community.CommunityDetailResponse;
+import com.emotion_apiserver.domain.dto.community.CommunityListResponse;
+import com.emotion_apiserver.domain.dto.community.CommunityUpdateRequest;
 import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 import com.emotion_apiserver.domain.dto.page.PageResponseDto;
 import com.emotion_apiserver.domain.emotion.EmotionTag;
@@ -64,16 +67,20 @@ public class CommunityService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
     }
 
-    public PageResponseDto<Community> getCommunityList(String sort, String emotionType, PageRequestDto pageRequestDto) {
+    public PageResponseDto<CommunityListResponse> getCommunityList(String sort, String emotionType, PageRequestDto pageRequestDto) {
         int skip = pageRequestDto.getSkip();
         int size = pageRequestDto.getSize();
 
-        List<Community> content = communityRepository.search(sort, emotionType, skip, size);
-        int total = (emotionType == null) ? communityRepository.countAll()
-                : communityRepository.countByEmotionType(emotionType);
+        List<Community> result = communityRepository.search(sort, emotionType, skip, size);
+        int total = (emotionType == null) ? communityRepository.countAll() : communityRepository.countByEmotionType(emotionType);
+
+        List<CommunityListResponse> content = result.stream()
+                .map(CommunityListResponse::new)
+                .collect(Collectors.toList());
 
         return new PageResponseDto<>(pageRequestDto, total, content);
     }
+
 
     public Long createCommunity(CommunityCreateRequest request, Long accountId) {
         Account author = getAccountOrThrow(accountId);
@@ -96,5 +103,33 @@ public class CommunityService {
     private List<EmotionTag> convertTags(List<String> tags) {
         return tags == null ? List.of() :
                 tags.stream().map(EmotionTag::valueOf).collect(Collectors.toList());
+    }
+
+    public CommunityDetailResponse getCommunityDetail(Long id, Long accountId) {
+        Community community = getCommunityOrThrow(id);
+        Account account = getAccountOrThrow(accountId);
+        return new CommunityDetailResponse(community, account);
+    }
+
+    public void updateCommunity(Long id, @Valid CommunityUpdateRequest request, Long accountId) {
+        Community community = getCommunityOrThrow(id);
+        Account account = getAccountOrThrow(accountId);
+
+        if(!community.getAuthor().getId().equals(account.getId())) {
+            throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
+        }
+
+        community.update(request.getTitle(), request.getContent(), request.getEmotion(), request.getEmotionTags());
+    }
+
+    public void deleteCommunity(Long id, Long accountId) {
+        Community community = getCommunityOrThrow(id);
+        Account account = getAccountOrThrow(accountId);
+
+        if (!community.getAuthor().getId().equals(account.getId())) {
+            throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
+        }
+
+        communityRepository.delete(community);
     }
 }

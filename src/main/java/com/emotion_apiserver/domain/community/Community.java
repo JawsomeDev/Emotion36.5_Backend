@@ -4,6 +4,8 @@ import com.emotion_apiserver.domain.account.Account;
 import com.emotion_apiserver.domain.emotion.EmotionTag;
 import com.emotion_apiserver.domain.emotion.EmotionType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -65,5 +67,13 @@ public class Community {
         if (this.likedBy.remove(account)) {
             this.likeCount--;
         }
+    }
+
+    public void update(String title, String content, EmotionType emotion, List<EmotionTag> emotionTags) {
+        this.title = title;
+        this.content = content;
+        this.emotion = emotion;
+        this.emotionTags = emotionTags;
+        this.updatedAt = LocalDateTime.now(); // 수정일 갱신
     }
 }
