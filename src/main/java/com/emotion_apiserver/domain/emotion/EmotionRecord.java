@@ -1,5 +1,6 @@
-package com.emotion_apiserver.domain;
+package com.emotion_apiserver.domain.emotion;
 
+import com.emotion_apiserver.domain.account.Account;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

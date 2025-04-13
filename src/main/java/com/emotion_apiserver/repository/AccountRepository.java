@@ -1,6 +1,6 @@
 package com.emotion_apiserver.repository;
 
-import com.emotion_apiserver.domain.Account;
+import com.emotion_apiserver.domain.account.Account;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

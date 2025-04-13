@@ -2,13 +2,14 @@ package com.emotion_apiserver.service;
 
 
 import com.emotion_apiserver.config.util.EmotionContentMapper;
-import com.emotion_apiserver.domain.EmotionType;
-import com.emotion_apiserver.domain.RecommendCategoryType;
+import com.emotion_apiserver.domain.emotion.EmotionType;
+import com.emotion_apiserver.domain.content.RecommendCategoryType;
 import com.emotion_apiserver.domain.dto.recommend.MovieInfo;
 import com.emotion_apiserver.domain.dto.recommend.RecommendContentDto;
 import com.emotion_apiserver.domain.dto.recommend.TVInfo;
 import com.emotion_apiserver.domain.dto.recommend.TrackInfo;
 import com.emotion_apiserver.repository.EmotionRecordRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class RecommendationService {
 
     private final SpotifyService spotifyService;

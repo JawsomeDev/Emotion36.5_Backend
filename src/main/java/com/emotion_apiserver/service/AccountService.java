@@ -1,12 +1,13 @@
 package com.emotion_apiserver.service;
 
-import com.emotion_apiserver.domain.Account;
-import com.emotion_apiserver.domain.AccountRole;
-import com.emotion_apiserver.domain.PasswordResetToken;
+import com.emotion_apiserver.domain.account.Account;
+import com.emotion_apiserver.domain.account.AccountRole;
+import com.emotion_apiserver.domain.account.PasswordResetToken;
 import com.emotion_apiserver.domain.dto.account.AccountSignUpRequest;
 import com.emotion_apiserver.domain.dto.account.AccountSignUpResponse;
 import com.emotion_apiserver.repository.AccountRepository;
 import com.emotion_apiserver.repository.PasswordResetTokenRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class AccountService {
 
     private final AccountRepository accountRepository;

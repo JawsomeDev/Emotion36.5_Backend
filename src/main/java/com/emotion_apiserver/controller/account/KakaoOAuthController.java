@@ -1,4 +1,4 @@
-package com.emotion_apiserver.controller;
+package com.emotion_apiserver.controller.account;
 
 
 import com.emotion_apiserver.config.util.JWTUtil;

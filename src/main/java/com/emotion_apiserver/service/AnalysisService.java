@@ -1,15 +1,16 @@
 package com.emotion_apiserver.service;
 
-import com.emotion_apiserver.domain.AnalysisType;
-import com.emotion_apiserver.domain.EmotionAnalysisSummary;
-import com.emotion_apiserver.domain.EmotionRecord;
-import com.emotion_apiserver.domain.EmotionType;
+import com.emotion_apiserver.domain.analyse.AnalysisType;
+import com.emotion_apiserver.domain.analyse.EmotionAnalysisSummary;
+import com.emotion_apiserver.domain.emotion.EmotionRecord;
+import com.emotion_apiserver.domain.emotion.EmotionType;
 import com.emotion_apiserver.domain.dto.analysis.EmotionSummary;
 import com.emotion_apiserver.domain.dto.analysis.EmotionTrendDto;
 import com.emotion_apiserver.domain.dto.analysis.WeeklyEmotionAnalysisResponse;
 import com.emotion_apiserver.repository.EmotionAnalysisSummaryRepository;
 import com.emotion_apiserver.repository.EmotionRecordRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AnalysisService {
 
     private final EmotionRecordRepository emotionRecordRepository;

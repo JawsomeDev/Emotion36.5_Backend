@@ -1,6 +1,6 @@
 package com.emotion_apiserver.repository;
 
-import com.emotion_apiserver.domain.PasswordResetToken;
+import com.emotion_apiserver.domain.account.PasswordResetToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

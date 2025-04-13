@@ -1,8 +1,8 @@
-package com.emotion_apiserver.controller;
+package com.emotion_apiserver.controller.account;
 
 
-import com.emotion_apiserver.domain.Account;
-import com.emotion_apiserver.domain.PasswordResetToken;
+import com.emotion_apiserver.domain.account.Account;
+import com.emotion_apiserver.domain.account.PasswordResetToken;
 import com.emotion_apiserver.domain.dto.account.PasswordResetRequest;
 import com.emotion_apiserver.repository.AccountRepository;
 import com.emotion_apiserver.repository.PasswordResetTokenRepository;
@@ -11,7 +11,6 @@ import com.emotion_apiserver.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 

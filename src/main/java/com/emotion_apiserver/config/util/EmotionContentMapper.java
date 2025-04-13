@@ -1,5 +1,5 @@
 package com.emotion_apiserver.config.util;
-import com.emotion_apiserver.domain.EmotionType;
+import com.emotion_apiserver.domain.emotion.EmotionType;
 import lombok.Getter;
 
 import java.util.List;

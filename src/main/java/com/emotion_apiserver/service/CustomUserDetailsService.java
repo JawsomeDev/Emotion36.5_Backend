@@ -1,7 +1,7 @@
 package com.emotion_apiserver.service;
 
 
-import com.emotion_apiserver.domain.Account;
+import com.emotion_apiserver.domain.account.Account;
 import com.emotion_apiserver.domain.dto.account.AccountDto;
 import com.emotion_apiserver.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;

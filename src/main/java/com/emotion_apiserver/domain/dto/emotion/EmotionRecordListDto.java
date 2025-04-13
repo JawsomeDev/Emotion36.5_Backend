@@ -1,8 +1,8 @@
 package com.emotion_apiserver.domain.dto.emotion;
 
 
-import com.emotion_apiserver.domain.EmotionTag;
-import com.emotion_apiserver.domain.EmotionType;
+import com.emotion_apiserver.domain.emotion.EmotionTag;
+import com.emotion_apiserver.domain.emotion.EmotionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

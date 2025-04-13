@@ -1,4 +1,4 @@
-package com.emotion_apiserver.domain;
+package com.emotion_apiserver.domain.emotion;
 
 import lombok.Getter;
 

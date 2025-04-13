@@ -1,6 +1,5 @@
 package com.emotion_apiserver.service;
 
-import com.emotion_apiserver.domain.Account;
 import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import lombok.RequiredArgsConstructor;

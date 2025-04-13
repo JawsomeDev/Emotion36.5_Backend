@@ -1,4 +1,4 @@
-package com.emotion_apiserver.controller;
+package com.emotion_apiserver.controller.emotion;
 
 import com.emotion_apiserver.domain.dto.account.AccountDto;
 import com.emotion_apiserver.domain.dto.recommend.RecommendContentDto;

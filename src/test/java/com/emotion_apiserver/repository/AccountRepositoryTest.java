@@ -1,7 +1,7 @@
 package com.emotion_apiserver.repository;
 
-import com.emotion_apiserver.domain.Account;
-import com.emotion_apiserver.domain.AccountRole;
+import com.emotion_apiserver.domain.account.Account;
+import com.emotion_apiserver.domain.account.AccountRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

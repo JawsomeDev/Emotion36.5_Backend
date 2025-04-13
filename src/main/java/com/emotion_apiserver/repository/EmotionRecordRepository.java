@@ -1,11 +1,7 @@
 package com.emotion_apiserver.repository;
 
-import com.emotion_apiserver.domain.Account;
-import com.emotion_apiserver.domain.EmotionRecord;
-import com.emotion_apiserver.domain.dto.account.AccountDto;
+import com.emotion_apiserver.domain.emotion.EmotionRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;

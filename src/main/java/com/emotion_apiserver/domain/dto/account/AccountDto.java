@@ -1,14 +1,11 @@
 package com.emotion_apiserver.domain.dto.account;
 
-import com.emotion_apiserver.domain.Account;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 

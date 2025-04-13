@@ -1,12 +1,13 @@
 package com.emotion_apiserver.repository;
 
 
-import com.emotion_apiserver.domain.EmotionRecord;
-import com.emotion_apiserver.domain.EmotionTag;
-import com.emotion_apiserver.domain.EmotionType;
-import com.emotion_apiserver.domain.QEmotionRecord;
+import com.emotion_apiserver.domain.emotion.EmotionRecord;
+import com.emotion_apiserver.domain.emotion.EmotionTag;
+import com.emotion_apiserver.domain.emotion.EmotionType;
+
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordListDto;
 import com.emotion_apiserver.domain.dto.page.PageRequestDto;
+import com.emotion_apiserver.domain.emotion.QEmotionRecord;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;

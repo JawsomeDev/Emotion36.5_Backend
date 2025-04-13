@@ -1,8 +1,8 @@
 package com.emotion_apiserver.service;
 
 
-import com.emotion_apiserver.domain.Account;
-import com.emotion_apiserver.domain.EmotionRecord;
+import com.emotion_apiserver.domain.account.Account;
+import com.emotion_apiserver.domain.emotion.EmotionRecord;
 import com.emotion_apiserver.domain.dto.account.AccountDto;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordCreateRequest;
 import com.emotion_apiserver.domain.dto.emotion.EmotionRecordListDto;
@@ -11,8 +11,8 @@ import com.emotion_apiserver.domain.dto.emotion.EmotionRecordUpdateResponse;
 import com.emotion_apiserver.domain.dto.page.PageRequestDto;
 import com.emotion_apiserver.domain.dto.page.PageResponseDto;
 import com.emotion_apiserver.repository.EmotionRecordRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class EmotionRecordService {
 
     private final EmotionRecordRepository emotionRecordRepository;

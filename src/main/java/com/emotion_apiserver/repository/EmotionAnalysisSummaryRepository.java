@@ -1,8 +1,7 @@
 package com.emotion_apiserver.repository;
 
-import com.emotion_apiserver.domain.AnalysisType;
-import com.emotion_apiserver.domain.EmotionAnalysisSummary;
-import com.querydsl.core.group.GroupBy;
+import com.emotion_apiserver.domain.analyse.AnalysisType;
+import com.emotion_apiserver.domain.analyse.EmotionAnalysisSummary;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
