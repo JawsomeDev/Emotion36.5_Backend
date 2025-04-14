@@ -86,7 +86,6 @@ public class CommunityService {
         Account author = getAccountOrThrow(accountId);
 
         Community community = Community.builder()
-                .title(request.getTitle())
                 .content(request.getContent())
                 .author(author)
                 .emotion(request.getEmotion())
@@ -119,7 +118,7 @@ public class CommunityService {
             throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
         }
 
-        community.update(request.getTitle(), request.getContent(), request.getEmotion(), request.getEmotionTags());
+        community.update(request.getContent(), request.getEmotion(), request.getEmotionTags());
     }
 
     public void deleteCommunity(Long id, Long accountId) {

@@ -23,12 +23,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Community {
+
     @Id @GeneratedValue
     private Long id;
 
-    private String title;
-
     @Lob
+    @Column(columnDefinition = "text")
     private String content;
 
     private LocalDateTime createdAt;
@@ -69,8 +69,7 @@ public class Community {
         }
     }
 
-    public void update(String title, String content, EmotionType emotion, List<EmotionTag> emotionTags) {
-        this.title = title;
+    public void update( String content, EmotionType emotion, List<EmotionTag> emotionTags) {
         this.content = content;
         this.emotion = emotion;
         this.emotionTags = emotionTags;

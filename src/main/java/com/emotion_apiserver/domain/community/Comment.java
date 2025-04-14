@@ -22,6 +22,8 @@ public class Comment {
     private Long id;
 
     private String content;
+
+
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,5 +40,14 @@ public class Comment {
             joinColumns = @JoinColumn(name = "comment_id"),
             inverseJoinColumns = @JoinColumn(name = "account_id")
     )
+    @Builder.Default
     private Set<Account> likedBy = new HashSet<>();
+
+    public void changeLikeCount(long likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
 }

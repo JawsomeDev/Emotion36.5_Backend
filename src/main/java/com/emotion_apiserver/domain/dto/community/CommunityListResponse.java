@@ -15,18 +15,20 @@ import java.util.List;
 public class CommunityListResponse {
 
     private Long id;
-    private String title;
     private EmotionType emotion;
     private List<EmotionTag> emotionTags;
+    private String content;
     private Long likeCount;
     private LocalDateTime createdAt;
+    private SimpleAccountResponse author;
 
     public CommunityListResponse(Community c) {
+        this.content = c.getContent();
         this.id = c.getId();
-        this.title = c.getTitle();
         this.emotion = c.getEmotion();
         this.emotionTags = c.getEmotionTags();
         this.likeCount = c.getLikeCount();
         this.createdAt = c.getCreatedAt();
+        this.author = new SimpleAccountResponse(c.getAuthor());
     }
 }

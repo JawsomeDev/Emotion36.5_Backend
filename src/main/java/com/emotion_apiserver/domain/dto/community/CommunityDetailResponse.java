@@ -16,7 +16,6 @@ import java.util.List;
 public class CommunityDetailResponse {
 
     private Long id;
-    private String title;
     private String content;
     private EmotionType emotion;
     private List<EmotionTag> emotionTags;
@@ -27,7 +26,6 @@ public class CommunityDetailResponse {
 
     public CommunityDetailResponse(Community community, Account viewer) {
         this.id = community.getId();
-        this.title = community.getTitle();
         this.content = community.getContent();
         this.emotion = community.getEmotion();
         this.emotionTags = community.getEmotionTags();
