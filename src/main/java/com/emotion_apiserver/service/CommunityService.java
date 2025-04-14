@@ -34,7 +34,7 @@ public class CommunityService {
         Account account = getAccountOrThrow(accountId);
 
         if (!community.getLikedBy().contains(account)) {
-            community.addLike(account); // 의미 있는 도메인 메서드 호출
+            community.addLike(account);
         }
 
         return community.getLikeCount();
@@ -45,7 +45,7 @@ public class CommunityService {
         Account account = getAccountOrThrow(accountId);
 
         if (community.getLikedBy().contains(account)) {
-            community.removeLike(account); // 의미 있는 도메인 메서드 호출
+            community.removeLike(account);
         }
 
         return community.getLikeCount();
