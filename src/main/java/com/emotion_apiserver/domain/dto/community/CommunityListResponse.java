@@ -21,6 +21,7 @@ public class CommunityListResponse {
     private Long likeCount;
     private LocalDateTime createdAt;
     private SimpleAccountResponse author;
+    private int commentCount;
 
     public CommunityListResponse(Community c) {
         this.content = c.getContent();
@@ -30,5 +31,6 @@ public class CommunityListResponse {
         this.likeCount = c.getLikeCount();
         this.createdAt = c.getCreatedAt();
         this.author = new SimpleAccountResponse(c.getAuthor());
+        this.commentCount = c.getComments().size(); // 이걸로 끝
     }
 }

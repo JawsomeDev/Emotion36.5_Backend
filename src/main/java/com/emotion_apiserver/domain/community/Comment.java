@@ -32,6 +32,8 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Community community;
 
+    private int commentCount;
+
     private long likeCount;
 
     @ManyToMany

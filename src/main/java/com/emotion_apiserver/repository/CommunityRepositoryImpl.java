@@ -38,6 +38,7 @@ public class CommunityRepositoryImpl implements CommunityRepositoryCustom {
 
         return queryFactory
                 .selectFrom(community)
+                .leftJoin(community.comments).fetchJoin()
                 .where(builder)
                 .orderBy(order)
                 .offset(skip)
