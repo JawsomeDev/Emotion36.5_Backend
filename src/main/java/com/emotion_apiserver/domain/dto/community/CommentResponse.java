@@ -16,6 +16,7 @@ public class CommentResponse {
     private Long authorId;
     private String authorNickname;
     private LocalDateTime createdAt;
+    private Long likeCount;
 
     public CommentResponse(Comment comment) {
         this.id = comment.getId();
@@ -23,5 +24,6 @@ public class CommentResponse {
         this.authorId = comment.getAuthor().getId();
         this.authorNickname = comment.getAuthor().getNickname();
         this.createdAt = comment.getCreatedAt();
+        this.likeCount = comment.getLikeCount();
     }
 }

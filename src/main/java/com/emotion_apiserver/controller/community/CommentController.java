@@ -7,6 +7,7 @@ import com.emotion_apiserver.domain.dto.community.CommentResponse;
 import com.emotion_apiserver.domain.dto.community.CommentUpdateRequest;
 import com.emotion_apiserver.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -65,4 +66,15 @@ public class CommentController {
         commentService.deleteComment(id, accountDto.getId());
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/like")
+    public ResponseEntity<?> isCommentLiked(@PathVariable Long id,
+                                            @AuthenticationPrincipal AccountDto accountDto) {
+        if (accountDto == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+        boolean liked = commentService.isLikedByUser(id, accountDto.getId());
+        return ResponseEntity.ok(liked);
+    }
+
 }

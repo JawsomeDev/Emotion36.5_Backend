@@ -45,7 +45,7 @@ public class CommentService {
 
     public List<CommentResponse> getCommentsByCommunity(Long communityId) {
         Community community = getCommunityOrThrow(communityId);
-        List<Comment> comments = commentRepository.findByCommunityOrderByCreatedAtAsc(community);
+        List<Comment> comments = commentRepository.findByCommunityOrderByCreatedAtDesc(community);
         return comments.stream()
                 .map(CommentResponse::new)
                 .collect(Collectors.toList());
@@ -101,5 +101,11 @@ public class CommentService {
     private Comment getCommentOrThrow(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다."));
+    }
+
+    public boolean isLikedByUser(Long commentId, Long accountId) {
+        Comment comment = getCommentOrThrow(commentId);
+        Account account = getAccountOrThrow(accountId);
+        return comment.getLikedBy().contains(account);
     }
 }
