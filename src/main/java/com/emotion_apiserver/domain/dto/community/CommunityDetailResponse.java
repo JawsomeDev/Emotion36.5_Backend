@@ -5,6 +5,7 @@ import com.emotion_apiserver.domain.account.Account;
 import com.emotion_apiserver.domain.community.Community;
 import com.emotion_apiserver.domain.emotion.EmotionTag;
 import com.emotion_apiserver.domain.emotion.EmotionType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -23,6 +24,13 @@ public class CommunityDetailResponse {
     private boolean liked;
     private LocalDateTime createdAt;
     private SimpleAccountResponse author;
+    private int commentCount;
+    @JsonProperty("isAuthor")
+    private boolean isAuthor;
+
+    public boolean isAuthor() {
+        return isAuthor;
+    }
 
     public CommunityDetailResponse(Community community, Account viewer) {
         this.id = community.getId();
@@ -33,5 +41,7 @@ public class CommunityDetailResponse {
         this.liked = community.getLikedBy().contains(viewer);
         this.createdAt = community.getCreatedAt();
         this.author = new SimpleAccountResponse(community.getAuthor());
+        this.commentCount = community.getComments().size();
+        this.isAuthor = community.getAuthor().getId().equals(viewer.getId());
     }
 }

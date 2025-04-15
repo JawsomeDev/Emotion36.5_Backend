@@ -20,5 +20,7 @@ public class CommunityUpdateRequest {
     @NotNull(message = "감정을 선택해주세요.")
     private EmotionType emotion;
 
+
+
     private List<EmotionTag> emotionTags;
 }
