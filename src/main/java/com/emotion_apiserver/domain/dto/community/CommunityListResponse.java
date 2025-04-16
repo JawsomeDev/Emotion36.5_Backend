@@ -9,6 +9,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -16,21 +17,21 @@ public class CommunityListResponse {
 
     private Long id;
     private EmotionType emotion;
-    private List<EmotionTag> emotionTags;
     private String content;
-    private Long likeCount;
+    private int likeCount;
+    private int commentCount; // 추가됨
     private LocalDateTime createdAt;
-    private SimpleAccountResponse author;
-    private int commentCount;
+    private String author; // 단순 문자열로 닉네임
+    private boolean isLiked;
 
-    public CommunityListResponse(Community c) {
-        this.content = c.getContent();
-        this.id = c.getId();
-        this.emotion = c.getEmotion();
-        this.emotionTags = c.getEmotionTags();
-        this.likeCount = c.getLikeCount();
-        this.createdAt = c.getCreatedAt();
-        this.author = new SimpleAccountResponse(c.getAuthor());
-        this.commentCount = c.getComments().size(); // 이걸로 끝
+    public CommunityListResponse(CommunityListDto dto) {
+        this.id = dto.getId();
+        this.emotion = dto.getEmotion();
+        this.content = dto.getContent();
+        this.likeCount = dto.getLikeCount();
+        this.commentCount = dto.getCommentCount(); // 새 필드 적용
+        this.createdAt = dto.getCreatedAt();
+        this.author = dto.getAuthorNickname(); // SimpleAccountResponse 대신 닉네임 문자열
+        this.isLiked = dto.isLiked();
     }
 }

@@ -16,4 +16,8 @@ public class SimpleAccountResponse {
         this.id = account.getId();
         this.nickname = account.getNickname();
     }
+
+    public SimpleAccountResponse(String nickname) {
+        this.nickname = nickname;
+    }
 }

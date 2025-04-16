@@ -39,6 +39,7 @@ public class CommentService {
                 .build();
 
         commentRepository.save(comment);
+        community.increaseCommentCount();
         return comment.getId();
     }
 
@@ -83,9 +84,15 @@ public class CommentService {
 
     public void deleteComment(Long commentId, Long accountId) {
         Comment comment = getCommentOrThrow(commentId);
+
         if (!comment.getAuthor().getId().equals(accountId)) {
             throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
         }
+
+        // 커뮤니티 조회 → 영속 상태 보장
+        Community community = getCommunityOrThrow(comment.getCommunity().getId());
+        community.decreaseCommentCount(); // 카운트 감소
+
         commentRepository.delete(comment);
     }
 

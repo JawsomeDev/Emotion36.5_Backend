@@ -49,6 +49,15 @@ public class Community {
 
     private long likeCount;
 
+    private int commentCount;
+
+    public void increaseCommentCount() {
+        this.commentCount++;
+    }
+    public void decreaseCommentCount() {
+        if (this.commentCount > 0) this.commentCount--;
+    }
+
     @ManyToMany
     @JoinTable(
             name = "community_likes",
