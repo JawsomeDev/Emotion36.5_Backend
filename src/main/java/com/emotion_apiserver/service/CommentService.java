@@ -44,11 +44,12 @@ public class CommentService {
     }
 
 
-    public List<CommentResponse> getCommentsByCommunity(Long communityId) {
+    public List<CommentResponse> getCommentsByCommunity(Long communityId, Long viewerId) {
         Community community = getCommunityOrThrow(communityId);
         List<Comment> comments = commentRepository.findByCommunityOrderByCreatedAtDesc(community);
+        Account viewer = getAccountOrThrow(viewerId);
         return comments.stream()
-                .map(CommentResponse::new)
+                .map(comment -> new CommentResponse(comment, viewer))
                 .collect(Collectors.toList());
     }
 

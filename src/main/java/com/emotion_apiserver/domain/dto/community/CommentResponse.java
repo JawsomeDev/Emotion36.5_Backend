@@ -1,6 +1,7 @@
 package com.emotion_apiserver.domain.dto.community;
 
 
+import com.emotion_apiserver.domain.account.Account;
 import com.emotion_apiserver.domain.community.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,13 +18,15 @@ public class CommentResponse {
     private String authorNickname;
     private LocalDateTime createdAt;
     private Long likeCount;
+    private boolean isLiked;
 
-    public CommentResponse(Comment comment) {
+    public CommentResponse(Comment comment, Account viewer) {
         this.id = comment.getId();
         this.content = comment.getContent();
         this.authorId = comment.getAuthor().getId();
         this.authorNickname = comment.getAuthor().getNickname();
         this.createdAt = comment.getCreatedAt();
         this.likeCount = comment.getLikeCount();
+        this.isLiked = comment.getLikedBy().contains(viewer);
     }
 }

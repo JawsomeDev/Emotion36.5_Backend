@@ -28,20 +28,22 @@ public class CommunityDetailResponse {
     @JsonProperty("isAuthor")
     private boolean isAuthor;
 
+
     public boolean isAuthor() {
         return isAuthor;
     }
 
-    public CommunityDetailResponse(Community community, Account viewer) {
+    public CommunityDetailResponse(Community community, Long viewerId) {
         this.id = community.getId();
         this.content = community.getContent();
         this.emotion = community.getEmotion();
         this.emotionTags = community.getEmotionTags();
         this.likeCount = community.getLikeCount();
-        this.liked = community.getLikedBy().contains(viewer);
+        this.liked = community.getLikedBy().stream()
+                .anyMatch(account -> account.getId().equals(viewerId));
         this.createdAt = community.getCreatedAt();
         this.author = new SimpleAccountResponse(community.getAuthor());
-        this.commentCount = community.getComments().size();
-        this.isAuthor = community.getAuthor().getId().equals(viewer.getId());
+        this.commentCount = community.getCommentCount();
+        this.isAuthor = community.getAuthor().getId().equals(viewerId);
     }
 }

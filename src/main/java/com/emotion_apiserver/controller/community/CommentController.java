@@ -30,8 +30,9 @@ public class CommentController {
 
     // 댓글 조회 (커뮤니티 ID 기준)
     @GetMapping
-    public ResponseEntity<List<CommentResponse>> getCommentsByCommunity(@RequestParam Long communityId) {
-        List<CommentResponse> comments = commentService.getCommentsByCommunity(communityId);
+    public ResponseEntity<List<CommentResponse>> getCommentsByCommunity(@RequestParam Long communityId,
+                                                                        @AuthenticationPrincipal AccountDto accountDto) {
+        List<CommentResponse> comments = commentService.getCommentsByCommunity(communityId, accountDto.getId());
         return ResponseEntity.ok(comments);
     }
 

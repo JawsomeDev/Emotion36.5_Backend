@@ -112,10 +112,11 @@ public class CommunityService {
                 tags.stream().map(EmotionTag::valueOf).collect(Collectors.toList());
     }
 
-    public CommunityDetailResponse getCommunityDetail(Long id, Long accountId) {
-        Community community = getCommunityOrThrow(id);
-        Account account = getAccountOrThrow(accountId);
-        return new CommunityDetailResponse(community, account);
+    public CommunityDetailResponse getCommunityDetail(Long id, Long viewerId) {
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        return new CommunityDetailResponse(community, viewerId);
     }
 
     public void updateCommunity(Long id, @Valid CommunityUpdateRequest request, Long accountId) {
