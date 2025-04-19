@@ -41,6 +41,10 @@ public class AccountService {
             throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
         }
 
+        if (!Boolean.TRUE.equals(request.getAgreeToTerms())) {
+            throw new IllegalArgumentException("이용약관에 동의해야 합니다.");
+        }
+
         Account account = Account.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -49,6 +53,7 @@ public class AccountService {
                 .createdAt(LocalDateTime.now())
                 .accountRoleList(List.of(AccountRole.USER))
                 .social(false)
+                .agreeToTerms(request.getAgreeToTerms())
                 .build();
 
         Account saved = accountRepository.save(account);

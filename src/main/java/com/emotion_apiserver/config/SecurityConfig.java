@@ -33,7 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
         http
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/", "/api/member/**", "/login", "/api/password/**",
+                        auth.requestMatchers("/", "/api/member/**",  "/login", "/api/password/**",
                                         "/v3/api-docs/**",
                                         "/v3/api-docs",
                                         "/swagger-ui/**",

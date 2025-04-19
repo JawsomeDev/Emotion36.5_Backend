@@ -13,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/member")
 public class AccountController {
 
     private final AccountService accountService;
@@ -22,7 +23,7 @@ public class AccountController {
         return "SUCCESS HEALTH CHECK";
     }
 
-    @PostMapping("/api/member/signup")
+    @PostMapping("/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody AccountSignUpRequest request) {
         AccountSignUpResponse response = accountService.signUp(request);
         return ResponseEntity.ok(Map.of(

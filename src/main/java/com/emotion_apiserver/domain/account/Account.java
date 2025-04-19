@@ -33,6 +33,10 @@ public class Account {
 
     private boolean social;
 
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean agreeToTerms = false;
+
     @ElementCollection
     @Builder.Default
     @Enumerated(EnumType.STRING)
