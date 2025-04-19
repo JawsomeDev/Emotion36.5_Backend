@@ -5,6 +5,7 @@ import com.emotion_apiserver.domain.account.Account;
 import com.emotion_apiserver.domain.community.Community;
 import com.emotion_apiserver.domain.emotion.EmotionTag;
 import com.emotion_apiserver.domain.emotion.EmotionType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class CommunityDetailResponse {
     private List<EmotionTag> emotionTags;
     private Long likeCount;
     private boolean liked;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
     private SimpleAccountResponse author;
     private int commentCount;

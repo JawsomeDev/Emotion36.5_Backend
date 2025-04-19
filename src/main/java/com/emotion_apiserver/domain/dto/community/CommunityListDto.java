@@ -2,6 +2,7 @@ package com.emotion_apiserver.domain.dto.community;
 
 import com.emotion_apiserver.domain.emotion.EmotionTag;
 import com.emotion_apiserver.domain.emotion.EmotionType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
@@ -16,6 +17,8 @@ public class CommunityListDto {
     private EmotionType emotion;
     private int likeCount;
     private int commentCount;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
     private String authorNickname;
     private boolean liked;

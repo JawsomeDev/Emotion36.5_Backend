@@ -4,6 +4,7 @@ package com.emotion_apiserver.domain.dto.community;
 import com.emotion_apiserver.domain.community.Community;
 import com.emotion_apiserver.domain.emotion.EmotionTag;
 import com.emotion_apiserver.domain.emotion.EmotionType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class CommunityListResponse {
     private String content;
     private int likeCount;
     private int commentCount; // 추가됨
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
     private String author; // 단순 문자열로 닉네임
     private boolean isLiked;

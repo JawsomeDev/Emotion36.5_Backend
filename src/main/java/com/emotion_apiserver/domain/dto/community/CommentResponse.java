@@ -3,6 +3,7 @@ package com.emotion_apiserver.domain.dto.community;
 
 import com.emotion_apiserver.domain.account.Account;
 import com.emotion_apiserver.domain.community.Comment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,6 +17,8 @@ public class CommentResponse {
     private String content;
     private Long authorId;
     private String authorNickname;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
     private Long likeCount;
     private boolean isLiked;
