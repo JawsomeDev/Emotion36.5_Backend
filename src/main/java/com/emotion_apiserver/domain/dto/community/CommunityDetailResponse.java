@@ -23,7 +23,6 @@ public class CommunityDetailResponse {
     private List<EmotionTag> emotionTags;
     private Long likeCount;
     private boolean liked;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
     private SimpleAccountResponse author;
     private int commentCount;
