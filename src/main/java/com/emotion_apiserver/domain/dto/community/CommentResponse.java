@@ -17,6 +17,7 @@ public class CommentResponse {
     private String content;
     private Long authorId;
     private String authorNickname;
+    private boolean isAuthor;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
@@ -27,6 +28,7 @@ public class CommentResponse {
         this.id = comment.getId();
         this.content = comment.getContent();
         this.authorId = comment.getAuthor().getId();
+        this.isAuthor = comment.getAuthor().getId().equals(viewer.getId());
         this.authorNickname = comment.getAuthor().getNickname();
         this.createdAt = comment.getCreatedAt();
         this.likeCount = comment.getLikeCount();
